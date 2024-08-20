@@ -4,7 +4,7 @@
 
   <div class="mb-4">
     <span class="text-xl font-semibold text-gray-700">Usuario: </span>
-    <span class="text-xl text-gray-600">{{ order.user.username }}</span>
+    <span class="text-xl text-gray-600">{{ order.user.username|title }}</span>
   </div>
 
   <div class="mb-4">
@@ -24,8 +24,32 @@
         <div class="text-lg text-gray-700">
           {{ product_order.product.name }}
         </div>
-        <div class="text-lg font-semibold text-gray-800">
-          {{ product_order.product.price|floatformat:2 }}
+        <div class="flex items-center space-x-4">
+          <div class="text-lg font-semibold text-gray-800">
+            {{ product_order.product.price|floatformat:2 }}
+          </div>
+          <form
+            action="{% url 'delete_product' product_order.id %}"
+            method="post"
+          >
+            {% csrf_token %}
+            <button type="submit" class="focus:outline-none">
+              <svg
+                class="h-6 w-6 text-red-600"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M18 6L17.1991 18.0129C17.129 19.065 17.0939 19.5911 16.8667 19.99C16.6666 20.3412 16.3648 20.6235 16.0011 20.7998C15.588 21 15.0607 21 14.0062 21H9.99377C8.93927 21 8.41202 21 7.99889 20.7998C7.63517 20.6235 7.33339 20.3412 7.13332 19.99C6.90607 19.5911 6.871 19.065 6.80086 18.0129L6 6M4 6H20M16 6L15.7294 5.18807C15.4671 4.40125 15.3359 4.00784 15.0927 3.71698C14.8779 3.46013 14.6021 3.26132 14.2905 3.13878C13.9376 3 13.523 3 12.6936 3H11.3064C10.477 3 10.0624 3 9.70951 3.13878C9.39792 3.26132 9.12208 3.46013 8.90729 3.71698C8.66405 4.00784 8.53292 4.40125 8.27064 5.18807L8 6M14 10V17M10 10V17"
+                  stroke="#C53030"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </button>
+          </form>
         </div>
       </div>
       {% empty %}

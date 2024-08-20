@@ -1,8 +1,9 @@
-from django.views.generic import DetailView, CreateView
+from django.views.generic import DetailView, CreateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
+from django.urls import reverse
 
-from .models import Order
+from .models import Order, OrderProduct
 from .forms import OrderProductForm
 
 
@@ -29,3 +30,20 @@ class CreateOrderProductView(LoginRequiredMixin, CreateView):
         form.instance.quantity = 1
         form.save()
         return super().form_valid(form)
+    
+class DeleteProductView(LoginRequiredMixin, DeleteView):
+    model = OrderProduct
+    success_url = reverse_lazy("my_order")
+    template_name = "orders/delete_order_product.html"
+    context_object_name = "order_product"
+    
+    def get_queryset(self):
+        return OrderProduct.objects.filter(order__user=self.request.user)
+    
+    def get_success_url(self):
+        return reverse("my_order")
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["order"] = self.get_object().order
+        return context
