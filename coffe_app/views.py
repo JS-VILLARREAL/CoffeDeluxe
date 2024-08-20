@@ -13,7 +13,6 @@ class ProductFormView(generic.FormView):
     success_url = reverse_lazy("add_product")
 
     def form_valid(self, form):
-        import ipdb; ipdb.set_trace()
         form.save()
         return super().form_valid(form)
     
