@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Coffe Shop Deluxe</title>
+  </head>
+  <body
+    class="bg-[conic-gradient(at_bottom_right,_var(--tw-gradient-stops))] from-blue-700 via-blue-800 to-gray-900"
+  >
+    <header>
+      <nav
+        class="bg-white border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800"
+      >
+        <div
+          class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl"
+        >
+          <a href="{% url 'list_product' %}" class="flex items-center">
+            <svg
+              class="size-10 mr-2"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g id="Environment / Coffe_To_Go">
+                <path
+                  id="Vector"
+                  d="M6.68604 15H17.3146M6.51465 13H17.4861M7.74316 7H16.2571M7.74316 7C7.13829 7 6.8358 7 6.61279 7.12093C6.41686 7.22718 6.26205 7.3963 6.17292 7.60059C6.07151 7.83303 6.0973 8.13407 6.14893 8.73633L6.94921 18.073C7.0377 19.1053 7.08203 19.6225 7.31149 20.0132C7.51358 20.3572 7.81426 20.6327 8.17432 20.8047C8.58318 21 9.10126 21 10.1377 21H13.8628C14.8992 21 15.4174 21 15.8263 20.8047C16.1864 20.6327 16.4869 20.3572 16.689 20.0132C16.9185 19.6225 16.9628 19.1056 17.0513 18.073L17.8517 8.73471C17.9033 8.13312 17.929 7.8329 17.8276 7.60059C17.7385 7.3963 17.5838 7.22718 17.3878 7.12093C17.1648 7 16.862 7 16.2571 7M7.74316 7H6.7499C5.85031 7 5.40023 7 5.13867 6.81152C4.90778 6.64515 4.75884 6.38816 4.72894 6.10515C4.69504 5.78431 4.91871 5.3929 5.36568 4.6107L5.36621 4.60977C5.70039 4.02496 5.86748 3.73255 6.10197 3.51953C6.31161 3.32909 6.55925 3.18544 6.82861 3.09791C7.12991 3 7.46658 3 8.14014 3H15.8604C16.5339 3 16.8707 3 17.172 3.09791C17.4413 3.18544 17.6888 3.32909 17.8984 3.51953C18.1329 3.73255 18.3 4.02496 18.6342 4.60977C19.0813 5.39224 19.3053 5.78425 19.2714 6.10515C19.2415 6.38816 19.0925 6.64515 18.8616 6.81152C18.6001 7 18.1497 7 17.2501 7H16.2571"
+                  stroke="#ffffff"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </g>
+            </svg>
+            <span
+              class="self-center text-2xl font-bold whitespace-nowrap dark:text-white"
+              >Coffee Deluxe</span
+            >
+          </a>
+          <div class="flex items-center lg:order-2">
+            {% if user.is_authenticated %}
+            <a href="{% url 'my_order' %}">
+              <button
+                type="button"
+                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+              >
+                Mi pedido
+              </button>
+            </a>
+            <form action="{% url 'logout' %}" method="post">
+              {% csrf_token %}
+              <button
+                type="submit"
+                class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
+              >
+                Cerrar sesión
+              </button>
+            </form>
+            {% else %}
+            <a href="{% url 'login' %}">
+              <button
+                class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800"
+              >
+                <span
+                  class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0"
+                >
+                  Iniciar sesión
+                </span>
+              </button>
+            </a>
+            {% endif %}
+          </div>
+        </div>
+      </nav>
+    </header>
+    <div class="flex items-center justify-center min-h-screen">
+      <div class="container mx-auto py-4">
+        {% block content %} {% endblock %}
+      </div>
+    </div>
+  </body>
+</html>
